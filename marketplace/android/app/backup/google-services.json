@@ -7,17 +7,46 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:407011103532:android:da7354814a7f4163449289",
+        "mobilesdk_app_id": "1:407011103532:android:9edee317eb1ca59e449289",
+        "android_client_info": {
+          "package_name": "com.example.firebase2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407011103532-letbt0a24p73fg67jtv6kbar58r581qu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwr8qMhlTUnJFI7lJO0zUHm9IVAhilCbc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407011103532-letbt0a24p73fg67jtv6kbar58r581qu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407011103532:android:54f70c43607ee08d449289",
         "android_client_info": {
           "package_name": "com.n0888311_mpa.marketplace"
         }
       },
       "oauth_client": [
         {
-          "client_id": "407011103532-900spivisjf9h9jhqhb0s27cbivjraom.apps.googleusercontent.com",
+          "client_id": "407011103532-t86g6dcrla58j1felkmm7hf72leto67p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.n0888311_mpa.marketplace",
+            "package_name": "com.n0888311_mpa",
             "certificate_hash": "84afeca87f1e6a6faa96b85f63542b7e3d575031"
           }
         },

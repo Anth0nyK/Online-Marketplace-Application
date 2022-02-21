@@ -1,5 +1,3 @@
-//import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:marketplace/services/firestore.dart';
@@ -9,14 +7,15 @@ import 'package:marketplace/topics/topic_item.dart';
 import 'package:marketplace/services/models.dart';
 import 'package:marketplace/topics/drawer.dart';
 import 'package:marketplace/topics/search.dart';
+import 'package:marketplace/market/market_item.dart';
 
-class TopicsScreen extends StatelessWidget {
-  const TopicsScreen({Key? key}) : super(key: key);
+class MarketScreen extends StatelessWidget {
+  const MarketScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Topic>>(
-      future: FirestoreService().getTopics(),
+    return FutureBuilder<List<Listing>>(
+      future: FirestoreService().getListings(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const LoadingScreen();
@@ -25,15 +24,15 @@ class TopicsScreen extends StatelessWidget {
             child: ErrorMessage(message: snapshot.error.toString()),
           );
         } else if (snapshot.hasData) {
-          var topics = snapshot.data!;
+          var listings = snapshot.data!;
 /** 
           List<Widget> list =
               topics.map((topic) => TopicItem(topic: topic)).toList();
 */
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.deepPurple,
-              title: const Text('Home'),
+              backgroundColor: Color.fromARGB(255, 182, 36, 116),
+              title: const Text('NTU Marketplace'),
               actions: [
                 IconButton(
                   icon: Icon(
@@ -47,30 +46,33 @@ class TopicsScreen extends StatelessWidget {
                 )
               ],
             ),
-            drawer: TopicDrawer(topics: topics),
+            //drawer: TopicDrawer(topics: topics),
             body: Column(
               children: [
                 //Text("NTU Marketplace"),
                 //Divider(),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Align(
                   child: Text(
                     'Hot items',
-                    style: TextStyle(fontSize: 25),
+                    style: TextStyle(fontSize: 30),
                   ),
                   alignment: Alignment.topLeft,
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 Container(
                   height: 140,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     padding: EdgeInsets.zero,
-                    children: topics
-                        .map((topic) => Container(
-                            width: MediaQuery.of(context).size.width * 0.33,
-                            child: TopicItem(topic: topic)))
+                    children: listings
+                        .map((listing) => Container(
+                            width: MediaQuery.of(context).size.width * 0.33333,
+                            child: MarketItem(listing: listing)))
                         .toList(),
                   ),
                 ),
@@ -81,10 +83,13 @@ class TopicsScreen extends StatelessWidget {
                 Align(
                   child: Text(
                     'New items',
-                    style: TextStyle(fontSize: 25),
+                    style: TextStyle(fontSize: 30),
                   ),
                   alignment: Alignment.topLeft,
-                )
+                ),
+                SizedBox(
+                  height: 10,
+                ),
               ],
             ),
             /*GridView.count(

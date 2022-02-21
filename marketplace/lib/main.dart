@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:marketplace/routes.dart';
 import 'package:marketplace/theme.dart';
+import 'package:provider/provider.dart';
+import 'package:marketplace/services/firestore.dart';
+import 'package:marketplace/services/models.dart';
+import 'package:flutter/material.dart';
+import 'package:marketplace/services/models.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,16 +44,31 @@ class _AppState extends State<App> {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: true,
-            routes: appRoutes,
-            theme: appTheme,
+          return StreamProvider(
+            create: (_) => FirestoreService().streamReport(),
+            initialData: Report(),
+            child: MaterialApp(
+              debugShowCheckedModeBanner: true,
+              routes: appRoutes,
+              theme: appTheme,
+            ),
           );
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
         return Text('loading');
       },
+    );
+  }
+}
+
+class QuizState with ChangeNotifier {
+  final PageController controller = PageController();
+
+  void nextPage() async {
+    await controller.nextPage(
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeOut,
     );
   }
 }
