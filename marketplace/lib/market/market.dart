@@ -30,6 +30,7 @@ class MarketScreen extends StatelessWidget {
               topics.map((topic) => TopicItem(topic: topic)).toList();
 */
           return Scaffold(
+            /*
             appBar: AppBar(
               backgroundColor: Color.fromARGB(255, 182, 36, 116),
               title: const Text('NTU Marketplace'),
@@ -45,52 +46,146 @@ class MarketScreen extends StatelessWidget {
                   },
                 )
               ],
-            ),
-            //drawer: TopicDrawer(topics: topics),
-            body: Column(
-              children: [
-                //Text("NTU Marketplace"),
-                //Divider(),
-                SizedBox(
-                  height: 10,
-                ),
-                Align(
-                  child: Text(
-                    'Hot items',
-                    style: TextStyle(fontSize: 30),
+            ),*/
+            drawer: null,
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  //Text("NTU Marketplace"),
+                  //Divider(),
+                  SizedBox(
+                    height: 0,
                   ),
-                  alignment: Alignment.topLeft,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 140,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.zero,
-                    children: listings
-                        .map((listing) => Container(
-                            width: MediaQuery.of(context).size.width * 0.33333,
-                            child: MarketItem(listing: listing)))
-                        .toList(),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Stack(children: [
+                      Container(
+                          decoration: new BoxDecoration(
+                            image: new DecorationImage(
+                              image: ExactAssetImage('assets/home.jpg'),
+                              fit: BoxFit.fitHeight,
+                            ),
+                          ),
+                          //color: Colors.blue,
+                          height: MediaQuery.of(context).size.height * 0.35,
+                          width: MediaQuery.of(context).size.width * 1),
+                      Container(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.15,
+                            ),
+                            Text(
+                              "NTU Marketplace",
+                              style: const TextStyle(
+                                  height: 2,
+                                  fontSize: 35,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  shadows: [
+                                    Shadow(
+                                        // bottomLeft
+                                        offset: Offset(-1.5, -1.5),
+                                        color:
+                                            Color.fromARGB(255, 182, 36, 116)),
+                                    Shadow(
+                                        // bottomRight
+                                        offset: Offset(1.5, -1.5),
+                                        color:
+                                            Color.fromARGB(255, 182, 36, 116)),
+                                    Shadow(
+                                        // topRight
+                                        offset: Offset(1.5, 1.5),
+                                        color:
+                                            Color.fromARGB(255, 182, 36, 116)),
+                                    Shadow(
+                                        // topLeft
+                                        offset: Offset(-1.5, 1.5),
+                                        color:
+                                            Color.fromARGB(255, 182, 36, 116)),
+                                  ]),
+                            ),
+                            ElevatedButton.icon(
+                                onPressed: () {
+                                  showSearch(
+                                      context: context, delegate: Search());
+                                },
+                                icon: Icon(FontAwesomeIcons.search),
+                                label: Text("Search",
+                                    style: const TextStyle(
+                                        fontSize: 30, color: Colors.white)),
+                                style: ElevatedButton.styleFrom(
+                                    primary: Color.fromARGB(255, 182, 36, 116),
+                                    shape: new RoundedRectangleBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(10.0)))),
+                          ],
+                        ),
+                        alignment: Alignment.bottomCenter,
+                      ),
+                    ]),
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Divider(),
-                Align(
-                  child: Text(
-                    'New items',
-                    style: TextStyle(fontSize: 30),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          child: Text(
+                            'Hot items',
+                            style: TextStyle(fontSize: 25),
+                          ),
+                          alignment: Alignment.topLeft,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          height: 140,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            padding: EdgeInsets.zero,
+                            children: listings
+                                .map((listing) => Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.33333,
+                                    child: MarketItem(listing: listing)))
+                                .toList(),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Divider(),
+                        Align(
+                          child: Text(
+                            'New items',
+                            style: TextStyle(fontSize: 25),
+                          ),
+                          alignment: Alignment.topLeft,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          height: 140,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            padding: EdgeInsets.zero,
+                            children: listings
+                                .map((listing) => Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.33333,
+                                    child: MarketItem(listing: listing)))
+                                .toList(),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  alignment: Alignment.topLeft,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
+                ],
+              ),
             ),
             /*GridView.count(
               primary: false,
