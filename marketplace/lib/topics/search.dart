@@ -31,8 +31,8 @@ class Search extends SearchDelegate {
   Widget buildResults(BuildContext context) {
     // TODO: implement buildResults
     // show some result based on the selection
-    return Container(
-      child: Center(
+    return Scaffold(
+      body: Center(
         child: Text(query),
       ),
     );

@@ -84,25 +84,22 @@ class MarketScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   shadows: [
                                     Shadow(
-                                        // bottomLeft
-                                        offset: Offset(-1.5, -1.5),
-                                        color:
-                                            Color.fromARGB(255, 182, 36, 116)),
+                                      // bottomLeft
+                                      offset: Offset(-1.5, -1.5),
+                                      color: Color.fromARGB(255, 232, 0, 90),
+                                    ),
                                     Shadow(
                                         // bottomRight
                                         offset: Offset(1.5, -1.5),
-                                        color:
-                                            Color.fromARGB(255, 182, 36, 116)),
+                                        color: Color.fromARGB(255, 232, 0, 90)),
                                     Shadow(
                                         // topRight
                                         offset: Offset(1.5, 1.5),
-                                        color:
-                                            Color.fromARGB(255, 182, 36, 116)),
+                                        color: Color.fromARGB(255, 232, 0, 90)),
                                     Shadow(
                                         // topLeft
                                         offset: Offset(-1.5, 1.5),
-                                        color:
-                                            Color.fromARGB(255, 182, 36, 116)),
+                                        color: Color.fromARGB(255, 232, 0, 90)),
                                   ]),
                             ),
                             ElevatedButton.icon(
@@ -115,7 +112,7 @@ class MarketScreen extends StatelessWidget {
                                     style: const TextStyle(
                                         fontSize: 30, color: Colors.white)),
                                 style: ElevatedButton.styleFrom(
-                                    primary: Color.fromARGB(255, 182, 36, 116),
+                                    primary: Color.fromARGB(255, 232, 0, 90),
                                     shape: new RoundedRectangleBorder(
                                         borderRadius:
                                             new BorderRadius.circular(10.0)))),
@@ -131,12 +128,28 @@ class MarketScreen extends StatelessWidget {
                         SizedBox(
                           height: 10,
                         ),
-                        Align(
-                          child: Text(
-                            'Hot items',
-                            style: TextStyle(fontSize: 25),
-                          ),
-                          alignment: Alignment.topLeft,
+                        Row(
+                          children: [
+                            Align(
+                              child: Text(
+                                'Hot items',
+                                style: TextStyle(fontSize: 25),
+                              ),
+                              alignment: Alignment.topLeft,
+                            ),
+                            Spacer(),
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Color.fromARGB(255, 232, 0, 90),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20))),
+                                  child: Text('view all'),
+                                  onPressed: () {}),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 10,
@@ -158,12 +171,28 @@ class MarketScreen extends StatelessWidget {
                           height: 20,
                         ),
                         Divider(),
-                        Align(
-                          child: Text(
-                            'New items',
-                            style: TextStyle(fontSize: 25),
-                          ),
-                          alignment: Alignment.topLeft,
+                        Row(
+                          children: [
+                            Align(
+                              child: Text(
+                                'New items',
+                                style: TextStyle(fontSize: 25),
+                              ),
+                              alignment: Alignment.topLeft,
+                            ),
+                            Spacer(),
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Color.fromARGB(255, 232, 0, 90),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20))),
+                                  child: Text('view all'),
+                                  onPressed: () {}),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 10,
@@ -194,10 +223,12 @@ class MarketScreen extends StatelessWidget {
               crossAxisCount: 2,
               children: topics.map((topic) => TopicItem(topic: topic)).toList(),
             ),*/
-            bottomNavigationBar: const BottomNavBar(),
+            bottomNavigationBar: const BottomNavBar(
+              theIndex: 2,
+            ),
           );
         } else {
-          return const Text('No topics found in Firestore. Check database');
+          return const Text('No items found in Firestore. Check database');
         }
       },
     );

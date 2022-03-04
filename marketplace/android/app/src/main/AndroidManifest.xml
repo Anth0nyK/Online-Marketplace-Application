@@ -1,9 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.n0888311_mpa.marketplace">
-   <application
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <queries>
+        <package android:name="com.google.android.apps.maps" />
+    </queries>
+
+    <application
         android:label="marketplace"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyCOUnwdEWMJAg2izGAoBbglRdiaPx5CYBY"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

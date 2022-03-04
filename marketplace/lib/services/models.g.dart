@@ -14,6 +14,8 @@ Listing _$ListingFromJson(Map<String, dynamic> json) => Listing(
       condition: json['condition'] as String? ?? '',
       img: json['img'] as String? ?? '',
       heart: json['heart'] as int? ?? 0,
+      longitude: (json['longitude'] as num?)?.toDouble() ?? 0.00,
+      latitude: (json['latitude'] as num?)?.toDouble() ?? 0.00,
     );
 
 Map<String, dynamic> _$ListingToJson(Listing instance) => <String, dynamic>{
@@ -24,6 +26,8 @@ Map<String, dynamic> _$ListingToJson(Listing instance) => <String, dynamic>{
       'condition': instance.condition,
       'img': instance.img,
       'heart': instance.heart,
+      'longitude': instance.longitude,
+      'latitude': instance.latitude,
     };
 
 Option _$OptionFromJson(Map<String, dynamic> json) => Option(

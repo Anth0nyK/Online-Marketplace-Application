@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'models.g.dart';
 
@@ -12,15 +13,20 @@ class Listing {
   String condition;
   String img;
   int heart;
+  double longitude;
+  double latitude;
 
-  Listing(
-      {this.name = '',
-      this.description = '',
-      this.price = 0.00,
-      this.lister = '',
-      this.condition = '',
-      this.img = '',
-      this.heart = 0});
+  Listing({
+    this.name = '',
+    this.description = '',
+    this.price = 0.00,
+    this.lister = '',
+    this.condition = '',
+    this.img = '',
+    this.heart = 0,
+    this.longitude = 0.00,
+    this.latitude = 0.00,
+  });
 
   factory Listing.fromJson(Map<String, dynamic> json) =>
       _$ListingFromJson(json);

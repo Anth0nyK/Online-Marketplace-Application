@@ -12,25 +12,35 @@ class LoginScreen extends StatelessWidget {
         padding: const EdgeInsets.all(30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const FlutterLogo(
-              size: 150,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.2,
+            ),
+            Image.asset(
+              'assets/NTU.png',
+              height: 200,
+            ),
+            Center(
+              child: Text(
+                "NTU Marketplace",
+                style: const TextStyle(
+                  height: 2,
+                  fontSize: 35,
+                  color: Color.fromARGB(255, 0, 72, 119),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 50,
             ),
             LoginButton(
               text: 'Sign in with Google',
               icon: FontAwesomeIcons.google,
-              color: Colors.blue,
+              color: Color.fromARGB(255, 232, 0, 90),
               loginMethod: AuthService().googleLogin,
             ),
-            Flexible(
-              child: LoginButton(
-                icon: FontAwesomeIcons.userNinja,
-                text: 'Continue as Guest',
-                loginMethod: AuthService().anonLogin,
-                color: Colors.deepPurple,
-              ),
-            )
           ],
         ),
       ),

@@ -5,6 +5,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:marketplace/services/models.dart';
 import 'package:marketplace/shared/progress_bar.dart';
 import 'package:marketplace/topics/drawer.dart';
+import 'dart:async';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'dart:typed_data';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 
 class MarketItem extends StatelessWidget {
   final Listing listing;
@@ -73,7 +80,7 @@ class MarketItem extends StatelessWidget {
                   children: [
                     Icon(
                       FontAwesomeIcons.solidHeart,
-                      color: Colors.pink,
+                      color: Color.fromARGB(255, 232, 0, 90),
                       size: 15,
                     ),
                     SizedBox(
@@ -91,6 +98,61 @@ class MarketItem extends StatelessWidget {
   }
 }
 
+class MapSample extends StatefulWidget {
+  final Listing listing;
+
+  const MapSample({Key? key, required this.listing}) : super(key: key);
+
+  @override
+  State<MapSample> createState() => MapSampleState();
+}
+
+class MapSampleState extends State<MapSample> {
+  Completer<GoogleMapController> _controller = Completer();
+
+  final CameraPosition _kLake = CameraPosition(
+      bearing: 192.8334901395799,
+      target: LatLng(37.43296265331129, -122.08832357078792),
+      tilt: 59.440717697143555,
+      zoom: 19.151926040649414);
+
+  List<Marker> allMarkers = [];
+  @override
+  void initState() {
+    super.initState();
+    allMarkers.add(Marker(
+        markerId: MarkerId('The location'),
+        draggable: false,
+        onTap: () {
+          print("Marker tapped" + widget.listing.longitude.toString());
+        },
+        position: LatLng(widget.listing.latitude, widget.listing.longitude)));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 300,
+      child: GoogleMap(
+        mapType: MapType.hybrid,
+        initialCameraPosition: CameraPosition(
+          target: LatLng(widget.listing.latitude, widget.listing.longitude),
+          zoom: 14.4746,
+        ),
+        markers: Set.from(allMarkers),
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+        gestureRecognizers: {
+          Factory<OneSequenceGestureRecognizer>(
+            () => EagerGestureRecognizer(),
+          ),
+        },
+      ),
+    );
+  }
+}
+
 class ItemScreen extends StatelessWidget {
   final Listing listing;
 
@@ -100,7 +162,7 @@ class ItemScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 182, 36, 116),
+        backgroundColor: Color.fromARGB(255, 232, 0, 90),
       ),
       body: ListView(children: [
         Container(
@@ -154,7 +216,7 @@ class ItemScreen extends StatelessWidget {
                         children: [
                           Icon(
                             FontAwesomeIcons.solidHeart,
-                            color: Colors.pink,
+                            color: Color.fromARGB(255, 232, 0, 90),
                             size: 25,
                           ),
                           SizedBox(
@@ -185,7 +247,7 @@ class ItemScreen extends StatelessWidget {
                             icon: Icon(FontAwesomeIcons.solidCommentDots),
                             label: Text("Chat"),
                             style: ElevatedButton.styleFrom(
-                                primary: Color.fromARGB(255, 182, 36, 116),
+                                primary: Color.fromARGB(255, 232, 0, 90),
                                 shape: new RoundedRectangleBorder(
                                     borderRadius:
                                         new BorderRadius.circular(10.0)))),
@@ -198,7 +260,7 @@ class ItemScreen extends StatelessWidget {
                             icon: Icon(FontAwesomeIcons.solidHeart),
                             label: Text("Favourite"),
                             style: ElevatedButton.styleFrom(
-                                primary: Color.fromARGB(255, 182, 36, 116),
+                                primary: Color.fromARGB(255, 232, 0, 90),
                                 shape: new RoundedRectangleBorder(
                                     borderRadius:
                                         new BorderRadius.circular(10.0)))),
@@ -210,7 +272,26 @@ class ItemScreen extends StatelessWidget {
                     "Pickup location",
                     style: const TextStyle(
                         height: 2, fontSize: 20, fontWeight: FontWeight.bold),
-                  )
+                  ),
+                  Center(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
+                      ),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        heightFactor: 1,
+                        widthFactor: 2.5,
+                        child: MapSample(
+                          listing: listing,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Divider(height: 40),
                 ],
               ),
             ),
