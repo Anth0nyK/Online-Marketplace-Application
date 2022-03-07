@@ -39,7 +39,9 @@ class MarketItem extends StatelessWidget {
                 child: Image.network(
                   //'assets/covers/${listing.img}',
                   listing.img,
-                  fit: BoxFit.contain,
+
+                  height: double.infinity,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

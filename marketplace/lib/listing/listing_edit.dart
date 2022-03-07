@@ -8,10 +8,9 @@ import 'package:marketplace/topics/topic_item.dart';
 import 'package:marketplace/services/models.dart';
 import 'package:marketplace/market/market_item.dart';
 import 'package:marketplace/listing/listing_item.dart';
-import 'package:marketplace/listing/listing_create.dart';
 
-class ListingScreen extends StatelessWidget {
-  const ListingScreen({Key? key}) : super(key: key);
+class ListingEditScreen extends StatelessWidget {
+  const ListingEditScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -80,19 +79,6 @@ class ListingScreen extends StatelessWidget {
                           child: MarketItem(listing: listing)))
                       .toList(),
                 ),*/
-            ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-            floatingActionButton: new FloatingActionButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => ListingCreateScreen(),
-                  ),
-                );
-              },
-              tooltip: 'List a new item',
-              child: new Icon(Icons.add),
-              backgroundColor: Color.fromARGB(255, 0, 72, 119),
             ),
             /*GridView.count(
               primary: false,

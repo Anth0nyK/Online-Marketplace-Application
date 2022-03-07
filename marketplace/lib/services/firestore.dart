@@ -59,4 +59,31 @@ class FirestoreService {
 
     return ref.set(data, SetOptions(merge: true));
   }
+
+  Future<void> updateItemInfo(String uuid, String name, String description) {
+    var user = AuthService().user!;
+    var ref = _db.collection('listings').doc(uuid);
+
+    var data = {
+      'name': name,
+    };
+
+    return ref.set(data, SetOptions(merge: true));
+  }
+
+  Future<void> createItem(String uuid, String name, int price,
+      String description, double latitude, double longitude) {
+    var user = AuthService().user!;
+    var ref = _db.collection('listings').doc(uuid);
+
+    var data = {
+      'name': name,
+      'description': description,
+      'price': price,
+      'latitude': latitude,
+      'longitude': longitude,
+    };
+
+    return ref.set(data, SetOptions(merge: true));
+  }
 }
