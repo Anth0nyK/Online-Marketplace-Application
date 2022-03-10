@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final userStream = FirebaseAuth.instance.authStateChanges();
   final user = FirebaseAuth.instance.currentUser;
-
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
   Future<void> anonLogin() async {
     try {
       await FirebaseAuth.instance.signInAnonymously();
@@ -30,6 +31,20 @@ class AuthService {
       );
 
       await FirebaseAuth.instance.signInWithCredential(authCredential);
+
+      var user = AuthService().user!;
+      var collection = _db.collection('users');
+      var docSnapshot = await collection.doc(user.uid).get();
+
+      if (!docSnapshot.exists) {
+        var ref = _db.collection('users').doc(user.uid);
+
+        var data = {
+          'userID': user.uid,
+        };
+
+        return ref.set(data, SetOptions(merge: true));
+      }
     } on FirebaseAuthException catch (e) {
       // handle error
     }

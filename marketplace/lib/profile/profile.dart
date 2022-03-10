@@ -49,6 +49,7 @@ class ProfileScreen extends StatelessWidget {
                   fontSize: 20,
                 )),
             Text(user.email ?? ''),
+            Text(user.uid),
             Divider(),
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),

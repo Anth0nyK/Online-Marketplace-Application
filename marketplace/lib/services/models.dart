@@ -15,18 +15,21 @@ class Listing {
   int heart;
   double longitude;
   double latitude;
+  String uuid;
+  String listerID;
 
-  Listing({
-    this.name = '',
-    this.description = '',
-    this.price = 0.00,
-    this.lister = '',
-    this.condition = '',
-    this.img = '',
-    this.heart = 0,
-    this.longitude = 0.00,
-    this.latitude = 0.00,
-  });
+  Listing(
+      {this.name = '',
+      this.description = '',
+      this.price = 0.00,
+      this.lister = '',
+      this.condition = '',
+      this.img = '',
+      this.heart = 0,
+      this.longitude = 0.00,
+      this.latitude = 0.00,
+      this.uuid = '',
+      this.listerID = ''});
 
   factory Listing.fromJson(Map<String, dynamic> json) =>
       _$ListingFromJson(json);

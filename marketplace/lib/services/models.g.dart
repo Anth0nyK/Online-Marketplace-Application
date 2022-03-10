@@ -16,6 +16,8 @@ Listing _$ListingFromJson(Map<String, dynamic> json) => Listing(
       heart: json['heart'] as int? ?? 0,
       longitude: (json['longitude'] as num?)?.toDouble() ?? 0.00,
       latitude: (json['latitude'] as num?)?.toDouble() ?? 0.00,
+      uuid: json['uuid'] as String? ?? '',
+      listerID: json['listerID'] as String? ?? '',
     );
 
 Map<String, dynamic> _$ListingToJson(Listing instance) => <String, dynamic>{
@@ -28,6 +30,8 @@ Map<String, dynamic> _$ListingToJson(Listing instance) => <String, dynamic>{
       'heart': instance.heart,
       'longitude': instance.longitude,
       'latitude': instance.latitude,
+      'uuid': instance.uuid,
+      'listerID': instance.listerID,
     };
 
 Option _$OptionFromJson(Map<String, dynamic> json) => Option(

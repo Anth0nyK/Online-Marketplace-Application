@@ -31,6 +31,10 @@ dependencies:
   location: 4.0.0
   google_maps_flutter: 2.0.0
   geolocator: ^8.2.0
+  uuid: ^3.0.6
+  firebase_storage: ^10.2.9
+  image_picker: ^0.8.4+10
+  dropdown_button2: ^1.2.1
 
 dev_dependencies:
   flutter_test:

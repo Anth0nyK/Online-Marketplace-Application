@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:marketplace/chat/chat.dart';
 import 'package:marketplace/home/home.dart';
 import 'package:marketplace/market/market.dart';
 import 'package:marketplace/profile/profile.dart';
@@ -115,6 +116,17 @@ class BottomNavBar extends StatelessWidget {
               PageRouteBuilder(
                 pageBuilder: (context, animation1, animation2) =>
                     ListingScreen(),
+                transitionDuration: Duration.zero,
+                reverseTransitionDuration: Duration.zero,
+              ),
+            );
+            break;
+          case 4:
+            //Navigator.pushNamed(context, '/profile');
+            Navigator.pushReplacement(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation1, animation2) => ChatScreen(),
                 transitionDuration: Duration.zero,
                 reverseTransitionDuration: Duration.zero,
               ),

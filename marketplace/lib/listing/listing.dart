@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:marketplace/listing/listing_item.dart';
+import 'package:marketplace/services/auth.dart';
 import 'package:marketplace/services/firestore.dart';
 import 'package:marketplace/shared/shared.dart';
 import 'package:marketplace/topics/topic_item.dart';
@@ -15,8 +16,10 @@ class ListingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var user = AuthService().user;
+
     return FutureBuilder<List<Listing>>(
-      future: FirestoreService().getListings(),
+      future: FirestoreService().getUserListings(user?.uid),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(

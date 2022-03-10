@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:marketplace/listing/listing_edit.dart';
+import 'package:marketplace/services/firestore.dart';
 import 'package:marketplace/services/models.dart';
 import 'package:marketplace/shared/progress_bar.dart';
 import 'package:marketplace/topics/drawer.dart';
@@ -119,7 +121,14 @@ class ListingItem extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         child: Text('Edit information'),
-                        onPressed: () {}),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  ItemEditScreen(listing: listing),
+                            ),
+                          );
+                        }),
                   ),
                   SizedBox(
                     width: double.infinity,
@@ -129,7 +138,16 @@ class ListingItem extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         child: Text('Remove item'),
-                        onPressed: () {}),
+                        onPressed: () {
+                          FirestoreService().deleteItem(listing.uuid);
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  content: Text('Item deleted'),
+                                );
+                              });
+                        }),
                   ),
                   SizedBox(
                     width: double.infinity,
