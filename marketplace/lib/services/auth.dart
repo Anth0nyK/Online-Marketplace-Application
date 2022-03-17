@@ -41,9 +41,24 @@ class AuthService {
 
         var data = {
           'userID': user.uid,
+          'userPic': user.photoURL,
+          'username': user.displayName,
+          'totalListing': 0,
+          'completedTrades': 0,
+          'totalEarning': 0,
         };
 
         return ref.set(data, SetOptions(merge: true));
+      } else {
+        var ref = _db.collection('users').doc(user.uid);
+
+        var data = {
+          'userID': user.uid,
+          'userPic': user.photoURL,
+          'username': user.displayName
+        };
+
+        return ref.update(data);
       }
     } on FirebaseAuthException catch (e) {
       // handle error

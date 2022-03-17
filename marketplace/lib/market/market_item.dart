@@ -1,7 +1,11 @@
 //import 'dart:html';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:marketplace/chat/chatroom.dart';
+import 'package:marketplace/services/auth.dart';
+import 'package:marketplace/services/firestore.dart';
 import 'package:marketplace/services/models.dart';
 import 'package:marketplace/shared/progress_bar.dart';
 import 'package:marketplace/topics/drawer.dart';
@@ -155,10 +159,112 @@ class MapSampleState extends State<MapSample> {
   }
 }
 
-class ItemScreen extends StatelessWidget {
+class ItemScreen extends StatefulWidget {
   final Listing listing;
 
   const ItemScreen({Key? key, required this.listing}) : super(key: key);
+
+  @override
+  State<ItemScreen> createState() => _ItemScreenState();
+}
+
+class _ItemScreenState extends State<ItemScreen> {
+  int likes = 0;
+  bool isLiked = false;
+  String chatroomID = "";
+  String userID = "";
+
+  checkIfLikedOrNot() async {
+    String itemID = widget.listing.uuid;
+    var user = AuthService().user!;
+    String currentUserID = user.uid;
+    //var ref = FirebaseFirestore.instance.collection('users').doc(user.uid);
+    DocumentSnapshot ds = await FirebaseFirestore.instance
+        //.collection("users/$currentUserID/likes")
+        .collection("listings/$itemID/likes")
+        //'chats/$idUser/messages'
+        .doc(currentUserID)
+        .get();
+    setState(() {
+      isLiked = ds.exists;
+    });
+  }
+
+  void addToContactAction(String thatguyUserID) {
+    var user = AuthService().user!;
+    String currentUserID = user.uid;
+    if (currentUserID != thatguyUserID) {
+      FirestoreService().addToContact(thatguyUserID).then((value) {
+        FirestoreService().getChatroomID(thatguyUserID).then((Contacts result) {
+          setState(() {
+            chatroomID = result.chatroomID;
+            userID = result.userID;
+          });
+
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) => ChatroomScreen(
+                TheRoomID: chatroomID,
+                TheUsername: widget.listing.lister,
+              ),
+            ),
+          );
+        });
+      });
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text('You cannot start a chat with yourself'),
+            );
+          });
+    }
+  }
+
+  void likeAction() {
+    if (isLiked == false) {
+      like();
+    }
+    if (isLiked == true) {
+      unlike();
+    }
+
+    setState(() {
+      isLiked = !isLiked;
+    });
+  }
+
+  void like() {
+    setState(() {
+      likes = likes + 1;
+    });
+
+    FirestoreService().likeAnItem(widget.listing.uuid);
+  }
+
+  void unlike() {
+    setState(() {
+      likes = likes - 1;
+    });
+
+    FirestoreService().unlikeAnItem(widget.listing.uuid);
+  }
+
+  getLikeCounts() async {
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    checkIfLikedOrNot();
+    getLikeCounts();
+    setState(() {
+      likes = widget.listing.heart;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +275,7 @@ class ItemScreen extends StatelessWidget {
       body: ListView(children: [
         Container(
           child: Image.network(
-            listing.img,
+            widget.listing.img,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 3,
           ),
@@ -187,7 +293,7 @@ class ItemScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        listing.name,
+                        widget.listing.name,
                         style: const TextStyle(
                             height: 2,
                             fontSize: 30,
@@ -195,7 +301,7 @@ class ItemScreen extends StatelessWidget {
                       ),
                       Spacer(),
                       Text(
-                        "\$" + listing.price.toString(),
+                        "\$" + widget.listing.price.toString(),
                         style: const TextStyle(
                             height: 2,
                             fontSize: 30,
@@ -206,7 +312,7 @@ class ItemScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        listing.condition,
+                        widget.listing.condition,
                         style: const TextStyle(
                           height: 2,
                           fontSize: 25,
@@ -216,16 +322,13 @@ class ItemScreen extends StatelessWidget {
                       Spacer(),
                       Row(
                         children: [
-                          Icon(
-                            FontAwesomeIcons.solidHeart,
-                            color: Color.fromARGB(255, 232, 0, 90),
-                            size: 25,
-                          ),
+                          Icon(FontAwesomeIcons.solidHeart, color: Colors.red),
                           SizedBox(
                             width: 5,
                           ),
                           Text(
-                            listing.heart.toString(),
+                            //widget.listing.heart.toString(),
+                            likes.toString(),
                             style: const TextStyle(
                               height: 2,
                               fontSize: 25,
@@ -237,7 +340,7 @@ class ItemScreen extends StatelessWidget {
                     ],
                   ),
                   Align(
-                    child: Text(listing.description),
+                    child: Text(widget.listing.description),
                     alignment: Alignment.topLeft,
                   ),
                   Row(
@@ -245,7 +348,9 @@ class ItemScreen extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 2.5,
                         child: ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              addToContactAction(widget.listing.listerID);
+                            },
                             icon: Icon(FontAwesomeIcons.solidCommentDots),
                             label: Text("Chat"),
                             style: ElevatedButton.styleFrom(
@@ -258,8 +363,14 @@ class ItemScreen extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 2.5,
                         child: ElevatedButton.icon(
-                            onPressed: () {},
-                            icon: Icon(FontAwesomeIcons.solidHeart),
+                            onPressed: () {
+                              likeAction();
+                            },
+                            icon: Icon(
+                                isLiked
+                                    ? Icons.favorite
+                                    : FontAwesomeIcons.heart,
+                                color: isLiked ? Colors.white : null),
                             label: Text("Favourite"),
                             style: ElevatedButton.styleFrom(
                                 primary: Color.fromARGB(255, 232, 0, 90),
@@ -288,7 +399,7 @@ class ItemScreen extends StatelessWidget {
                         heightFactor: 1,
                         widthFactor: 2.5,
                         child: MapSample(
-                          listing: listing,
+                          listing: widget.listing,
                         ),
                       ),
                     ),

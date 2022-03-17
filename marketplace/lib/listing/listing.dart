@@ -18,8 +18,10 @@ class ListingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var user = AuthService().user;
 
-    return FutureBuilder<List<Listing>>(
-      future: FirestoreService().getUserListings(user?.uid),
+    return StreamBuilder<List<Listing>>(
+      stream: FirestoreService().getUserListingsStream(user?.uid),
+      // return FutureBuilder<List<Listing>>(
+      //   future: FirestoreService().getUserListings(user?.uid),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(

@@ -140,6 +140,7 @@ class ListingItem extends StatelessWidget {
                         child: Text('Remove item'),
                         onPressed: () {
                           FirestoreService().deleteItem(listing.uuid);
+                          FirestoreService().updateTotalListing(-1);
                           showDialog(
                               context: context,
                               builder: (context) {
@@ -157,7 +158,19 @@ class ListingItem extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         child: Text('Mark as Sold'),
-                        onPressed: () {}),
+                        onPressed: () {
+                          FirestoreService().deleteItem(listing.uuid);
+                          FirestoreService().updateCompletedTrades(1);
+                          FirestoreService().updateTotalEarning(listing.price);
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  content: Text(r'Item sold. You earned $' +
+                                      listing.price.toString()),
+                                );
+                              });
+                        }),
                   )
                 ],
               ),

@@ -352,6 +352,7 @@ class _ListingCreateScreenState extends State<ListingCreateScreen> {
                         user?.uid,
                         dropdownvalue,
                         theImageLink);
+                    FirestoreService().updateTotalListing(1);
                     showDialog(
                         context: context,
                         builder: (context) {

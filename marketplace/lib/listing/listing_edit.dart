@@ -443,6 +443,7 @@ class MapSampleState extends State<MapSample> {
           widget.onLatLongChanged(newPosition);
         }),
       ));
+      widget.onLatLongChanged(tappedPoint);
     });
   }
 
