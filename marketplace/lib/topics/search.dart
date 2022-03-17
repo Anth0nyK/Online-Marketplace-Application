@@ -109,7 +109,8 @@ class Search extends SearchDelegate {
     //throw UnimplementedError();
   }
 
-  List<String> recentList = ["test", "test2"];
+  //List<String> recentList = ["test", "test2"];
+  List<String> recentList = [];
   List<String> suggestions = ["sug1", "sug2"];
 
   @override

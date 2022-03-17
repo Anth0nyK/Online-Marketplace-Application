@@ -66,14 +66,3 @@ class _AppState extends State<App> {
     );
   }
 }
-
-class QuizState with ChangeNotifier {
-  final PageController controller = PageController();
-
-  void nextPage() async {
-    await controller.nextPage(
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.easeOut,
-    );
-  }
-}

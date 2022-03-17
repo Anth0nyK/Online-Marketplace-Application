@@ -7,8 +7,6 @@ import 'package:marketplace/chat/chatroom.dart';
 import 'package:marketplace/services/auth.dart';
 import 'package:marketplace/services/firestore.dart';
 import 'package:marketplace/services/models.dart';
-import 'package:marketplace/shared/progress_bar.dart';
-import 'package:marketplace/topics/drawer.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -140,6 +138,7 @@ class MapSampleState extends State<MapSample> {
     return Container(
       height: 300,
       child: GoogleMap(
+        myLocationEnabled: true,
         mapType: MapType.hybrid,
         initialCameraPosition: CameraPosition(
           target: LatLng(widget.listing.latitude, widget.listing.longitude),

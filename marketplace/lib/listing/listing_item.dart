@@ -3,8 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:marketplace/listing/listing_edit.dart';
 import 'package:marketplace/services/firestore.dart';
 import 'package:marketplace/services/models.dart';
-import 'package:marketplace/shared/progress_bar.dart';
-import 'package:marketplace/topics/drawer.dart';
 import 'dart:async';
 import 'package:marketplace/market/market_item.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';

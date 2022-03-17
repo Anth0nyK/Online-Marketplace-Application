@@ -5,7 +5,6 @@ import 'package:marketplace/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:marketplace/login/login.dart';
 import 'package:marketplace/shared/shared.dart';
-import 'package:marketplace/topics/topics.dart';
 import 'package:marketplace/services/auth.dart';
 import 'package:marketplace/market/market.dart';
 

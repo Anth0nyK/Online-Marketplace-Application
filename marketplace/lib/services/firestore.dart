@@ -23,20 +23,16 @@ class FirestoreService {
 
   Stream<List<Listing>> getHotListingsStream() {
     var ref = _db.collection('listings').orderBy('heart', descending: true);
-    //return ref.snapshots().map((doc) => Listing.fromJson(doc.data()!));
     return ref.snapshots().map((snapshot) => snapshot.docs
         .map((snapshot) => Listing.fromJson(snapshot.data()))
         .toList());
-    //return ref.snapshots().map((doc) => Report.fromJson(doc.data()!));
   }
 
   Stream<List<Listing>> getNewListingsStream() {
     var ref = _db.collection('listings').orderBy('time', descending: true);
-    //return ref.snapshots().map((doc) => Listing.fromJson(doc.data()!));
     return ref.snapshots().map((snapshot) => snapshot.docs
         .map((snapshot) => Listing.fromJson(snapshot.data()))
         .toList());
-    //return ref.snapshots().map((doc) => Report.fromJson(doc.data()!));
   }
 
   Stream<List<Listing>> getSearchListingsStream(String query) {
@@ -51,15 +47,6 @@ class FirestoreService {
         .map((snapshot) => Listing.fromJson(snapshot.data()))
         .toList());
     //return ref.snapshots().map((doc) => Report.fromJson(doc.data()!));
-  }
-
-  /// Reads all documments from the topics collection
-  Future<List<Topic>> getTopics() async {
-    var ref = _db.collection('topics');
-    var snapshot = await ref.get();
-    var data = snapshot.docs.map((s) => s.data());
-    var topics = data.map((d) => Topic.fromJson(d));
-    return topics.toList();
   }
 
   Future<User> getUserDoc(String theUserID) async {
@@ -121,40 +108,6 @@ class FirestoreService {
         .map((snapshot) => Likes.fromJson(snapshot.data()))
         .toList());
     //return ref.snapshots().map((doc) => Report.fromJson(doc.data()!));
-  }
-
-  /// Retrieves a single quiz document
-  Future<Quiz> getQuiz(String quizId) async {
-    var ref = _db.collection('quizzes').doc(quizId);
-    var snapshot = await ref.get();
-    return Quiz.fromJson(snapshot.data() ?? {});
-  }
-
-  /// Listens to current user's report document in Firestore
-  Stream<Report> streamReport() {
-    return AuthService().userStream.switchMap((user) {
-      if (user != null) {
-        var ref = _db.collection('reports').doc(user.uid);
-        return ref.snapshots().map((doc) => Report.fromJson(doc.data()!));
-      } else {
-        return Stream.fromIterable([Report()]);
-      }
-    });
-  }
-
-  /// Updates the current user's report document after completing quiz
-  Future<void> updateUserReport(Quiz quiz) {
-    var user = AuthService().user!;
-    var ref = _db.collection('reports').doc(user.uid);
-
-    var data = {
-      'total': FieldValue.increment(1),
-      'topics': {
-        quiz.topic: FieldValue.arrayUnion([quiz.id])
-      }
-    };
-
-    return ref.set(data, SetOptions(merge: true));
   }
 
   Future<void> updateItemInfo(String uuid, String name, String description) {
@@ -288,17 +241,6 @@ class FirestoreService {
         firebase_storage.FirebaseStorage.instance.ref().child('upload/$uuid');
     await storageRef.putFile(image);
     return await storageRef.getDownloadURL();
-  }
-
-  Stream<Report> streamItem() {
-    return AuthService().userStream.switchMap((user) {
-      if (user != null) {
-        var ref = _db.collection('reports').doc(user.uid);
-        return ref.snapshots().map((doc) => Report.fromJson(doc.data()!));
-      } else {
-        return Stream.fromIterable([Report()]);
-      }
-    });
   }
 
   Future<void> likeAnItem(String? itemID) {
@@ -482,5 +424,16 @@ class FirestoreService {
         .collection('users')
         .doc(currentUserID)
         .update({"totalEarning": FieldValue.increment(count)});
+  }
+
+  Stream<Report> streamReport() {
+    return AuthService().userStream.switchMap((user) {
+      if (user != null) {
+        var ref = _db.collection('reports').doc(user.uid);
+        return ref.snapshots().map((doc) => Report.fromJson(doc.data()!));
+      } else {
+        return Stream.fromIterable([Report()]);
+      }
+    });
   }
 }

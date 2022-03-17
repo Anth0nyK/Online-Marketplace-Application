@@ -6,7 +6,6 @@ import 'package:marketplace/listing/listing_item.dart';
 import 'package:marketplace/services/auth.dart';
 import 'package:marketplace/services/firestore.dart';
 import 'package:marketplace/shared/shared.dart';
-import 'package:marketplace/topics/topic_item.dart';
 
 import 'package:marketplace/services/models.dart';
 import 'package:marketplace/market/market_item.dart';
