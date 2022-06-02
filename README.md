@@ -42,7 +42,7 @@ The app allows users to use Google as a sign-in method. Users can easily sign in
 
 </br>
 
-Home page: 
+**Home page: **
 </br>
 It will show the hot and latest items on the platform according to their likes amount and their listing time. Also, it allows users to search for specific items according to name by pressing the "Search" button in the banner of this home page.
 <p align="center">
@@ -52,7 +52,7 @@ It will show the hot and latest items on the platform according to their likes a
 
 </br>
 
-Item page:
+**Item page:**
 </br>
 In each item page, it will show the information such as picture, name, price, description, likes amount of a specific item. It provides two button - "Chat" and "Favourite" to allow the users to chat with the seller or add the item to their favourite list by clicking them. There is also a Google Map provided in this page to indicate the pickup location of the item.
 <p align="center">
@@ -63,7 +63,7 @@ In each item page, it will show the information such as picture, name, price, de
 
 </br>
 
-Favourite page:
+**Favourite page:**
 </br>
 It will show the items which are marked as favourite by the current user, so that they can easily look up the items they liked previously.
 <p align="center">
@@ -72,7 +72,7 @@ It will show the items which are marked as favourite by the current user, so tha
 
 </br>
 
-Listings page:
+**Listings page:**
 </br>
 It is a page where the current signed in user can manage their listed items. They can do actions like "Edit information", "Remove item" and "Mark as Sold".
 <p align="center">
@@ -81,7 +81,7 @@ It is a page where the current signed in user can manage their listed items. The
 
 </br>
 
-Item edit page:
+**Item edit page:**
 </br>
 It is a page where the user can edit the informatoin of the listed item. The pickup location of the item can be edited by simply dragging the Pin inside the Google Map to the new location.
 <p align="center">
@@ -91,7 +91,7 @@ It is a page where the user can edit the informatoin of the listed item. The pic
 </br>
 
 
-Profile page:
+**Profile page:**
 </br>
 It will show the user information and some statistics about the number of trades and the total earning of the current signed in user.
 <p align="center">
