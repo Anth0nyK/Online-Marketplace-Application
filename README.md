@@ -12,8 +12,6 @@ This project is the result of **self-learning** Flutter, Dart and Firebase for 1
 ---
 
 ### Table of Contents
-You're sections headers will be used to reference location of destination.
-
 - [Description](#description)
 - [How To Use](#how-to-use)
 
