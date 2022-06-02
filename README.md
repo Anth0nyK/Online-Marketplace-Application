@@ -1,6 +1,6 @@
 # Online Marketplace Application
 
-This project is the progress of self-learning Flutter, Dart and Firebase for 1 month. The final product is an online marketplace application built using Flutter and Firebase for Nottingham Trent University (NTU).
+This project is the progress of **self-learning** Flutter, Dart and Firebase for 1 month. The final product is an online marketplace application built using Flutter and Firebase for Nottingham Trent University (NTU).
 
 #### Learning outcomes
 - Flutter
@@ -33,7 +33,7 @@ This project is an online marketplace application built using Flutter and Fireba
 
 #### Features
 
-Authentication:
+**Authentication:**
 </br>
 The app allows users to use Google as a sign-in method. Users can easily sign in and use the app with by using their Google account.
 <p align="center">
