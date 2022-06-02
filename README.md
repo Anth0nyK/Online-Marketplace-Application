@@ -40,7 +40,7 @@ The app allows users to use Google as a sign-in method. Users can easily sign in
 
 </br>
 
-**Home page: **
+**Home page:**
 </br>
 It will show the hot and latest items on the platform according to their likes amount and their listing time. Also, it allows users to search for specific items according to name by pressing the "Search" button in the banner of this home page.
 <p align="center">
