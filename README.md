@@ -29,6 +29,13 @@ This project is an online marketplace application built using Flutter and Fireba
 
 </br>
 
+#### Paper prototype
+<p align="center">
+  <img src="https://github.com/Anth0nyK/Online-Marketplace-Application/blob/main/README_Images/PaperPrototypeMVP.gif" width="250">
+</p>
+
+</br>
+
 #### Features
 
 **Authentication:**
