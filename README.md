@@ -1,4 +1,4 @@
-# Online Marketplace Application
+# NTU Online Marketplace Application
 
 This project is the result of **self-learning** Flutter, Dart and Firebase for 1 month. The final product is an online marketplace application built using Flutter and Firebase for Nottingham Trent University (NTU).
 
