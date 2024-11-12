@@ -100,7 +100,7 @@ It is a page where the user can edit the informatoin of the listed item. The pic
 </br>
 It will show the user information and some statistics about the number of trades and the total earning of the current signed in user.
 <p align="center">
-  <img src="https://github.com/Anth0nyK/Online-Marketplace-Application/blob/main/README_Images/3.png" width="250">
+  <img src="https://github.com/Anth0nyK/Online-Marketplace-Application/blob/main/README_Images/12.png" width="250">
 </p>
 
 </br>
